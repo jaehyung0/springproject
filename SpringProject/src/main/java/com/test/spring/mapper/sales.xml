@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sales">
+		
+	<select id="mget" parameterType="String" resultType="com.sales.spring.SalesDTO" >
+		select NVL(sum(stock_price),0) as daymprice from vwSalesM where method_seq=3 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')
+<!-- 		select NVL(sum(stock_price),0) as daymprice from vwSalesM where method_seq=3 -->
+	</select>
+	<select id="cget" resultType="com.sales.spring.SalesDTO">
+		select NVL(sum(stock_price),0) as daycprice from vwSalesM where (method_seq=1 or method_seq=2) and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')
+<!-- select NVL(sum(stock_price),0) as daycprice from vwSalesM where method_seq=1 or method_seq=2 -->
+	</select>
+	
+	<select id="monthmpcget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select NVL(sum(fee_price),0) as monthmpc from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month}
+	</select>
+	<select id="monthcpcget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select NVL(sum(fee_price),0) as monthcpc from vwPcM where (method_seq =1 or method_seq =2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month}
+	</select>
+	
+	<select id="daympcget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 1) as daympc1
+			,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 2) as daympc2
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 3) as daympc3
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 4) as daympc4
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 5) as daympc5
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 6) as daympc6
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 7) as daympc7
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 8) as daympc8
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 9) as daympc9
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 10) as daympc10
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 11) as daympc11
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 12) as daympc12
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 13) as daympc13
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 14) as daympc14
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 15) as daympc15
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 16) as daympc16
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 17) as daympc17
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 18) as daympc18
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 19) as daympc19
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 20) as daympc20
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 21) as daympc21
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 22) as daympc22
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 23) as daympc23
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 24) as daympc24
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 25) as daympc25
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 26) as daympc26
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 27) as daympc27
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 28) as daympc28
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 29) as daympc29
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 30) as daympc30
+		    ,(select NVL(sum(fee_price),0) from vwPcM where method_seq =3 and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 31) as daympc31
+		from vwPcM where rownum=1
+	</select>
+	<select id="daycpcget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 1) as daycpc1
+			,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 2) as daycpc2
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 3) as daycpc3
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 4) as daycpc4
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 5) as daycpc5
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 6) as daycpc6
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 7) as daycpc7
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 8) as daycpc8
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 9) as daycpc9
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 10) as daycpc10
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 11) as daycpc11
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 12) as daycpc12
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 13) as daycpc13
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 14) as daycpc14
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 15) as daycpc15
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 16) as daycpc16
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 17) as daycpc17
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 18) as daycpc18
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 19) as daycpc19
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 20) as daycpc20
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 21) as daycpc21
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 22) as daycpc22
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 23) as daycpc23
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 24) as daycpc24
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 25) as daycpc25
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 26) as daycpc26
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 27) as daycpc27
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 28) as daycpc28
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 29) as daycpc29
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 30) as daycpc30
+		    ,(select NVL(sum(fee_price),0) from vwPcM where (method_seq=1 or method_seq=2) and to_char(payment_time,'yyyy')= 2022 and to_char(payment_time,'mm') = #{month} and to_char(payment_time,'dd') = 31) as daycpc31
+		from vwPcM where rownum=1
+	</select>
+	
+	<select id="daymmealget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daymmeal1
+			,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daymmeal2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daymmeal3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daymmeal4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daymmeal5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daymmeal6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daymmeal7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daymmeal8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daymmeal9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daymmeal10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daymmeal11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daymmeal12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daymmeal13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daymmeal14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daymmeal15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daymmeal16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daymmeal17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daymmeal18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daymmeal19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daymmeal20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daymmeal21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daymmeal22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daymmeal23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daymmeal24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daymmeal25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daymmeal26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daymmeal27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daymmeal28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daymmeal29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daymmeal30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daymmeal31
+		from vwSalesM where rownum=1
+	</select>
+	<select id="daycmealget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daycmeal1
+			,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daycmeal2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daycmeal3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daycmeal4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daycmeal5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daycmeal6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daycmeal7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daycmeal8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daycmeal9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daycmeal10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daycmeal11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daycmeal12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daycmeal13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daycmeal14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daycmeal15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daycmeal16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daycmeal17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daycmeal18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daycmeal19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daycmeal20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daycmeal21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daycmeal22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daycmeal23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daycmeal24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daycmeal25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daycmeal26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daycmeal27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daycmeal28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daycmeal29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daycmeal30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daycmeal31
+		from vwSalesM where rownum=1
+	</select>
+	
+	<select id="daymfryget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daymfry1
+			,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daymfry2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daymfry3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daymfry4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daymfry5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daymfry6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daymfry7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daymfry8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daymfry9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daymfry10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daymfry11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daymfry12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daymfry13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daymfry14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daymfry15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daymfry16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daymfry17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daymfry18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daymfry19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daymfry20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daymfry21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daymfry22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daymfry23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daymfry24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daymfry25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daymfry26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daymfry27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daymfry28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daymfry29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daymfry30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daymfry31
+		from vwSalesM where rownum=1
+	</select>
+	<select id="daycfryget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daycfry1
+			,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daycfry2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daycfry3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daycfry4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daycfry5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daycfry6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daycfry7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daycfry8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daycfry9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daycfry10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daycfry11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daycfry12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daycfry13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daycfry14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daycfry15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daycfry16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daycfry17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daycfry18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daycfry19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daycfry20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daycfry21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daycfry22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daycfry23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daycfry24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daycfry25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daycfry26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daycfry27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daycfry28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daycfry29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daycfry30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daycfry31
+		from vwSalesM where rownum=1
+	</select>
+	
+	<select id="daymramenget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daymramen1
+			,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daymramen2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daymramen3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daymramen4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daymramen5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daymramen6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daymramen7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daymramen8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daymramen9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daymramen10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daymramen11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daymramen12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daymramen13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daymramen14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daymramen15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daymramen16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daymramen17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daymramen18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daymramen19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daymramen20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daymramen21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daymramen22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daymramen23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daymramen24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daymramen25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daymramen26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daymramen27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daymramen28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daymramen29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daymramen30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq =3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daymramen31
+		from vwSalesM where rownum=1
+	</select>
+	<select id="daycramenget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daycramen1
+			,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daycramen2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daycramen3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daycramen4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daycramen5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daycramen6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daycramen7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daycramen8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daycramen9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daycramen10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daycramen11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daycramen12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daycramen13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daycramen14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daycramen15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daycramen16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daycramen17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daycramen18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daycramen19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daycramen20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daycramen21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daycramen22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daycramen23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daycramen24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daycramen25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daycramen26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daycramen27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daycramen28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daycramen29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daycramen30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daycramen31
+		from vwSalesM where rownum=1
+	</select>
+	
+	<select id="daymdrankget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daymdrank1
+			,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daymdrank2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daymdrank3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daymdrank4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daymdrank5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daymdrank6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daymdrank7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daymdrank8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daymdrank9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daymdrank10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daymdrank11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daymdrank12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daymdrank13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daymdrank14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daymdrank15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daymdrank16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daymdrank17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daymdrank18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daymdrank19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daymdrank20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daymdrank21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daymdrank22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daymdrank23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daymdrank24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daymdrank25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daymdrank26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daymdrank27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daymdrank28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daymdrank29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daymdrank30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daymdrank31
+		from vwSalesM where rownum=1
+	</select>
+	<select id="daycdrankget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daycdrank1
+			,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daycdrank2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daycdrank3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daycdrank4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daycdrank5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daycdrank6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daycdrank7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daycdrank8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daycdrank9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daycdrank10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daycdrank11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daycdrank12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daycdrank13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daycdrank14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daycdrank15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daycdrank16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daycdrank17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daycdrank18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daycdrank19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daycdrank20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daycdrank21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daycdrank22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daycdrank23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daycdrank24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daycdrank25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daycdrank26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daycdrank27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daycdrank28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daycdrank29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daycdrank30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 4 or mctg_seq = 7) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daycdrank31
+		from vwSalesM where rownum=1
+	</select>
+	
+	<select id="daymsnackget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daymsnack1
+			,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daymsnack2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daymsnack3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daymsnack4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daymsnack5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daymsnack6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daymsnack7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daymsnack8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daymsnack9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daymsnack10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daymsnack11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daymsnack12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daymsnack13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daymsnack14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daymsnack15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daymsnack16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daymsnack17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daymsnack18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daymsnack19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daymsnack20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daymsnack21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daymsnack22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daymsnack23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daymsnack24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daymsnack25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daymsnack26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daymsnack27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daymsnack28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daymsnack29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daymsnack30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daymsnack31
+		from vwSalesM where rownum=1
+	</select>
+	<select id="daycsnackget" parameterType="Integer" resultType="com.sales.spring.SalesDTO" >
+		select
+		    (select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 1) as daycsnack1
+			,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 2) as daycsnack2
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 3) as daycsnack3
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 4) as daycsnack4
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 5) as daycsnack5
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 6) as daycsnack6
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 7) as daycsnack7
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 8) as daycsnack8
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 9) as daycsnack9
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 10) as daycsnack10
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 11) as daycsnack11
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 12) as daycsnack12
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 13) as daycsnack13
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 14) as daycsnack14
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 15) as daycsnack15
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 16) as daycsnack16
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 17) as daycsnack17
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 18) as daycsnack18
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 19) as daycsnack19
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 20) as daycsnack20
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 21) as daycsnack21
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 22) as daycsnack22
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 23) as daycsnack23
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 24) as daycsnack24
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 25) as daycsnack25
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 26) as daycsnack26
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 27) as daycsnack27
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 28) as daycsnack28
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 29) as daycsnack29
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 30) as daycsnack30
+		    ,(select NVL(sum(stock_price),0) from vwSalesM where (mctg_seq = 5 or mctg_seq = 6) and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month} and to_char(purchase_time,'dd') = 31) as daycsnack31
+		from vwSalesM where rownum=1
+	</select>
+
+	<select id="monthmpriceget" parameterType="Integer" resultType="com.sales.spring.SalesDTO">
+		select NVL(sum(stock_price),0) as monthmprice from vwSalesM where method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}
+<!-- 		select NVL(sum(fee_price),0) as mmpcs from vwPcM where method_seq =3  -->
+	</select>
+	
+	<select id="monthcpriceget" parameterType="Integer" resultType="com.sales.spring.SalesDTO">
+		select NVL(sum(stock_price),0) as monthcprice from vwSalesM where (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}
+<!-- select NVL(sum(fee_price),0) as cmpcs from vwPcM where method_seq =1 or method_seq =2 -->
+	</select>
+	
+	<select id="monthmpricelistget" resultType="com.sales.spring.SalesDTO">
+
+		select
+			(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 1 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthmpricelist1
+			,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 2 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthmpricelist2
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 3 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthmpricelist3
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 4 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthmpricelist4
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 5 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthmpricelist5
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 6 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthmpricelist6
+	        ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 7 and method_seq =3 and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthmpricelist7
+		from vwSalesM where rownum=1
+
+	</select>
+	
+	<select id="monthcpricelistget" resultType="com.sales.spring.SalesDTO">
+
+		select
+			(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 1 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthcpricelist1
+			,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 2 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthcpricelist2
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 3 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthcpricelist3
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 4 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthcpricelist4
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 5 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthcpricelist5
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 6 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthcpricelist6
+	        ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 7 and (method_seq =1 or method_seq =2) and to_char(purchase_time,'yyyy')= 2022 and to_char(purchase_time,'mm') = #{month}) as monthcpricelist7
+		from vwSalesM where rownum=1
+
+	</select>
+	
+	
+
+	<select id="mpcget" resultType="com.sales.spring.SalesDTO">
+		select NVL(sum(fee_price),0) as mmpcs from vwPcM where method_seq =3 and to_char(payment_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')
+<!-- 		select NVL(sum(fee_price),0) as mmpcs from vwPcM where method_seq =3  -->
+	</select>
+	
+	<select id="cpcget" resultType="com.sales.spring.SalesDTO">
+		select NVL(sum(fee_price),0) as cmpcs from vwPcM where (method_seq =1 or method_seq =2) and to_char(payment_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm') 
+<!-- select NVL(sum(fee_price),0) as cmpcs from vwPcM where method_seq =1 or method_seq =2 -->
+	</select>
+	
+	<select id="priceget" resultType="com.sales.spring.SalesDTO">
+<!-- 	select -->
+<!-- 			(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 1 ) as price1 -->
+<!-- 			,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 2 ) as price2 -->
+<!-- 		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 3 ) as price3 -->
+<!-- 		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 4 ) as price4 -->
+<!-- 		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 5 ) as price5 -->
+<!-- 		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 6 ) as price6 -->
+<!-- 	        ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 7 ) as price7 -->
+<!-- 		from vwSalesM where rownum=1 -->
+		select
+			(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 1 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')) as price1
+			,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 2 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')) as price2
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 3 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')) as price3
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 4 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')) as price4
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 5 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')) as price5
+		    ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 6 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')) as price6
+	        ,(select NVL(sum(stock_price), 0) from vwSalesM where mctg_seq = 7 and to_char(purchase_time,'yyyy-mm')=to_char(sysdate,'yyyy-mm')) as price7
+		from vwSalesM where rownum=1
+
+	</select>
+	
+	<insert id="salesadd" parameterType="com.sales.spring.SalesDTO">
+		insert into tblFee (fee_seq, fee_name, feectg_seq, method_seq, adult_seq, fee_time, fee_price) 
+    		values (seqFee.nextVal, #{fee_name}, #{feectg_seq}, #{method_seq}, #{adult_seq}, #{fee_time}, #{fee_price})
+	</insert>
+	
+	<select id="saleslist" resultType="com.sales.spring.SalesDTO">
+		select rownum as rownum1 
+            ,a.fee_seq as fee_seq
+		    ,a.fee_name as fee_name1
+		    ,(select b.feectg_name from tblFeectg b where b.feectg_seq = a.feectg_seq) as feectg_name1
+		    ,(select c.method_name from tblmethod c where c.method_seq = a.method_seq) as method_name1
+		    ,(select d.adlut_name from tblAdultctg d where d.adult_seq = a.adult_seq) as adlut_name1
+		    ,a.fee_time as fee_time1
+		    ,a.fee_price as fee_price1
+		from tblFee a
+		order by fee_seq desc
+	</select>
+	
+	
+		<update id="salesedit" parameterType="com.sales.spring.SalesDTO">
+		update tblFee set 
+			fee_name = #{fee_name}, 
+			feectg_seq = #{feectg_seq}, 
+			method_seq = #{method_seq}, 
+			adult_seq = #{adult_seq},
+			fee_time = #{fee_time},
+			fee_price = #{fee_price} 
+				where fee_seq = #{fee_seq}
+	</update>
+	
+	<delete id="salesdel" parameterType="String">
+		delete from tblFee where fee_seq = #{fee_seq}
+	</delete>
+	
+	<select id="get" parameterType="String" resultType="com.sales.spring.SalesDTO">
+		select rownum as rownum1 
+            ,a.fee_seq as fee_seq
+		    ,a.fee_name as fee_name1
+		    ,(select b.feectg_seq from tblFeectg b where b.feectg_seq = a.feectg_seq) as feectg_seq1
+		    ,(select c.method_seq from tblmethod c where c.method_seq = a.method_seq) as method_seq1
+		    ,(select d.adult_seq from tblAdultctg d where d.adult_seq = a.adult_seq) as adult_seq1
+		    ,a.fee_time as fee_time1
+		    ,a.fee_price as fee_price1
+		from tblFee a
+		where fee_seq = #{fee_seq}
+	</select>
+	
+
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

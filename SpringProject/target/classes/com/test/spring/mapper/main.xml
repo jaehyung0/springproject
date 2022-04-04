@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main">
+	
+	<select id="list" resultType="com.test.spring.MainDTO" parameterType="Integer">
+		select * from vwWorkplan where seq=#{seq}
+	</select>
+	
+	<select id="infolist" resultType="com.test.spring.MainDTO">
+		select * from tblboard
+	</select>
+	
+	<select id="sget" resultType="com.test.spring.MainDTO" parameterType="String">
+		select sum(price) as daysales from vwFsales where time like '%' ||#{date}|| '%'
+	</select>
+	
+	<select id="tget" resultType="com.test.spring.MainDTO" parameterType="String">
+		select ((select sum(price) from vwFee where time like '%'||#{date}||'%')+(select sum(price) from vwFsales where time like '%'||#{date}||'%' )) as totalsales from dual
+	</select>
+	
+	<select id="mget" resultType="com.test.spring.MainDTO" parameterType="String">
+		select count(distinct(name)) as daycount from vwFee where time like '%' ||#{date}|| '%'
+	</select>
+	
+	<select id="pget" resultType="com.test.spring.MainDTO" parameterType="String">
+		select (select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '00:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '01:59:59','yyyy-mm-dd hh24:mi:ss')
+) as time1,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '02:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '03:59:59','yyyy-mm-dd hh24:mi:ss')
+) as time2,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '04:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '05:59:59','yyyy-mm-dd hh24:mi:ss')
+) as time3,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '06:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '07:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time4,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '08:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '09:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time5,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '10:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '11:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time6,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '12:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '13:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time7,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '14:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '15:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time8,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '16:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '17:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time9,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '18:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '19:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time10,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '20:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '21:59:59','yyyy-mm-dd hh24:mi:ss'))
+as time11,(select count(payment_time) from tblpayment where payment_time between to_date(#{date1}|| '22:00:00','yyyy-mm-dd hh24:mi:ss') and to_date(#{date1}|| '23:59:59','yyyy-mm-dd hh24:mi:ss')) as time12
+from dual
+	</select>
+	
+	<select id="mlist" resultType="com.test.spring.MainDTO">
+		select tm.member_id as id,tm.member_name as name, tm.member_tel as tel
+     , tm.member_age as age, tm.member_gender as gender, tml.MEMBERLV_LEVEL as lv,tm.member_seq 
+from tblmember tm inner join tblmemberlv tml on tm.memberlv_seq=tml.MEMBERLV_SEQ order by tm.member_seq asc
+	</select>
+	
+	<select id="atget" resultType="com.test.spring.MainDTO" parameterType="String">
+		select floor(avg(tf.FEE_TIME)/60) as avghour,floor(mod(avg(tf.FEE_TIME),60)) as avgmin from tblfee tf inner join tblpayment tp on tf.fee_seq = tp.fee_seq
+inner join tblmember tm on tm.member_id = tp.MEMBER_ID
+where tp.PAYMENT_TIME between to_date(#{date1},'yyyy-mm-dd') and to_date(#{date1},'yyyy-mm-dd')+1
+	</select>
+	
+	 
+	 <select id="pfget" resultType="com.test.spring.MainDTO" parameterType="String">
+		select rownum as rnum , a.* from (select count(ts.STOCK_NAME),ts.STOCK_NAME as foodname from TBLSTOCK ts inner join tblMenu tm on ts.stock_seq = tm.STOCK_SEQ
+inner join TBLPURCHASE tp on tm.MENU_SEQ = tp.MENU_SEQ
+where tp.PURCHASE_TIME between to_date(#{date1},'yyyy-mm-dd') and to_date(#{date1},'yyyy-mm-dd')+1
+group by ts.STOCK_NAME order by count(ts.STOCK_NAME) desc) a where rownum = 1
+	</select>
+	 
+	 
+	<!-- ajax -->
+	
+	<!-- <insert id="memberadd" parameterType="con.test.spring.MainDTO">
+		insert into tblmember (member_id,member_pw,member_name,member_tel,member_age,member_genger,memberlv_seq,member_seq) values
+		(#{member_id},#{member_pw},#{member_name},#{member_tel},#{member_age},#{member_gender},#{memberlv_seq},seqMember.nextVal)
+	</insert> -->
+	<!--
+	<update id="medit" parameterType="com.test.spring.MainDTO">
+	 update tblMember set member_pw=#{member_pw},member_name=#{member_name},member_tel=#{member_tel}
+	 ,member_age=#{member_age},member_gender=#{member_gender},memberlv_seq=#{memberlv_seq} where member_id=#{member_id}
+	</update>
+	
+	<delete id="del" parameterType="String">
+		delete from tblmember where member_id = #{member_id}
+	</delete>
+	
+	<select id="search" resultType="com.test.spring.AddressDTO" parameterType="String">
+		select * from tblmember where member_name like '%' || #{word} || '%' order by seq asc
+	</select>
+	
+	 -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
