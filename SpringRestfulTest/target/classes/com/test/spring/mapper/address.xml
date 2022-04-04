@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="address">
+	
+	<insert id="add" parameterType="com.test.spring.AddressDTO">
+		<!-- insert into tblAddress (seq, name, age, tel, address)
+			values (seqAddress.nextVal, #{name}, #{age}, #{tel}, #{address}) -->
+		insert into tblmember (member_id,member_pw,member_name,member_tel,member_age,member_gender,memberlv_seq,member_seq)
+		values (#{member_id},#{member_pw},#{member_name},#{member_tel},#{member_age},#{member_gender},#{memberlv_seq},seqMember.nextVal)
+	</insert>
+	
+	<select id="list" resultType="com.test.spring.AddressDTO">
+		<!-- select * from tblAddress order by seq asc -->
+		select tm.member_id as member_id,tm.member_name as member_name, tm.member_tel as member_tel
+     , tm.member_age as member_age, tm.member_gender as member_gender, tml.MEMBERLV_LEVEL as member_lv, tm.member_seq as member_seq,tm.member_pw as member_pw
+from tblmember tm inner join tblmemberlv tml on tm.memberlv_seq=tml.MEMBERLV_SEQ order by tm.member_seq desc
+	</select>
+	
+	<update id="edit" parameterType="com.test.spring.AddressDTO">
+		update tblMember set 
+			member_id=#{member_id},
+			member_pw=#{member_pw},
+			member_name = #{member_name}, 
+			member_age = #{member_age},
+			member_tel = #{member_tel},
+			member_gender=#{member_gender},
+			memberlv_seq=#{memberlv_seq}
+				where member_seq = #{member_seq}
+	</update>
+	
+	<delete id="del" parameterType="String">
+		delete from tblMember where member_seq = #{member_id}
+	</delete>
+	
+	<select id="search" resultType="com.test.spring.AddressDTO" parameterType="String">
+		select tm.member_id as member_id,tm.member_name as member_name, tm.member_tel as member_tel
+     , tm.member_age as member_age, tm.member_gender as member_gender, tml.MEMBERLV_LEVEL as member_lv, tm.member_seq as member_seq,tm.member_pw as member_pw
+from tblmember tm inner join tblmemberlv tml on tm.memberlv_seq=tml.MEMBERLV_SEQ where tm.member_name like '%' || #{word} || '%'
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
