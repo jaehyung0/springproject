@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<!-- AOP -->
+	<aop:aspectj-autoproxy/>
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/images/**" location="/resources/image/"/>
+
+	<!-- window -->
+	<resources location="file:///C:/testImage/" mapping="/testImage/**" />
+	
+	<!-- 타일즈 제공 > 뷰리졸버 사용 -->
+	<beans:bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions" value="/WEB-INF/tiles.xml"></beans:property>
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"></beans:property>
+	</beans:bean>
+
+	<context:component-scan base-package="com.test.*" />
+	
+	<!-- 업로드 패스 설정 --> 
+<beans:bean class="java.lang.String" id="uploadPath">
+ <beans:constructor-arg value="C:\class\spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringProject\resources" />
+</beans:bean>
+
+
+<!-- 스프링에서 기본으로 제공하는 multipartResolver는 CommonsMultipartResolver 이므로, 순수한 multipartResolver를 사용하기 위해 빈 이름으로 "multipartResolver"를 등록해야함 + 프로퍼티를 이용 최대 가능한 업로드 사이즈 지정함 -->
+    
+<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:property name="maxUploadSize" value="100000000"></beans:property>
+</beans:bean>
+
+	
+</beans:beans>

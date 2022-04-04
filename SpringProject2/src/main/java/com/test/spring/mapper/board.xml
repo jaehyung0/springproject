@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<insert id="add" parameterType="dto">
+		insert into tblStock
+		(stock_seq, stock_name, stock_l, stock_cnt, stock_img, stock_price) 
+    values 
+    (seqstock.nextVal, #{stock_name}, #{stock_l}, #{stock_cnt}, #{stock_img},
+    #{stock_price})
+	</insert>
+	
+	<select id="list" resultType="dto">
+		select 
+    stock_seq,
+	scom_seq,
+	stock_name,
+	stock_l,
+	stock_cnt,
+	stock_img,
+	stock_price
+        from tblStock
+        	order by stock_seq desc
+	</select>
+	
+	<select id="get" parameterType="String" resultType ="dto">
+		select 
+    stock_seq,
+	scom_seq,
+	stock_name,
+	stock_l,
+	stock_cnt,
+	stock_img,
+	stock_price
+        from tblStock
+			where stock_seq =#{stock_seq}
+	</select>
+	
+	<update id="edit" parameterType="dto">
+		update tblStock set 
+		stock_name = #{stock_name},
+		 stock_l = #{stock_l},
+		  stock_cnt = #{stock_cnt},
+		  stock_img =#{stock_img},
+		  stock_price=#{stock_price}
+		  where stock_seq = #{stock_seq}
+		  
+	</update>
+	
+	<delete id="del" parameterType="String">
+		delete from tblStock where stock_seq = #{stock_seq}
+	</delete>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
